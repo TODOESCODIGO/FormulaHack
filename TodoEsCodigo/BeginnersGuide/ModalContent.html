@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 15px;
+        background-color: #f8f9fa;
+        color: #3c4043;
+        position: relative; /* Needed for absolute positioning of the footer */
+        min-height: calc(100% - 30px); /* Adjust based on margin */
+        padding-bottom: 30px; /* Space for the footer */
+      }
+      h3 { color: #1a73e8; margin-bottom: 15px; }
+      input[type="text"] {
+        width: calc(100% - 20px);
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #dadce0;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
+      .formula-card {
+        background-color: #ffffff;
+        border: 1px solid #dadce0;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 10px;
+        box-shadow: 0 1px 2px 0 rgba(60,64,67,0.3), 0 1px 3px 1px rgba(60,64,67,0.15);
+      }
+      .formula-name {
+        font-weight: bold;
+        color: #1a73e8;
+        font-size: 1.1em;
+        margin-bottom: 5px;
+      }
+      .formula-description {
+        font-size: 0.9em;
+        color: #5f6368;
+        margin-bottom: 5px;
+      }
+      .formula-example {
+        font-family: 'Courier New', monospace;
+        background-color: #e8f0fe;
+        border: 1px dashed #b3d4ff;
+        padding: 5px;
+        border-radius: 4px;
+        font-size: 0.85em;
+        color: #174ea6;
+        cursor: pointer; /* To indicate it's clickable */
+      }
+      #results {
+        max-height: 250px;
+        overflow-y: auto;
+        border-top: 1px solid #dadce0;
+        padding-top: 10px;
+        margin-bottom: 10px; /* Ensure space before footer */
+      }
+      .no-results {
+        color: #70757a;
+        text-align: center;
+        padding: 20px;
+      }
+      .modal-footer {
+        position: absolute;
+        bottom: 10px; /* Distance from the bottom */
+        right: 15px; /* Distance from the right */
+        font-size: 0.8em;
+        color: #70757a;
+        font-style: italic;
+      }
+    </style>
+  </head>
+  <body>
+    <h3>🔍 Buscador de Fórmulas Básicas</h3>
+    <input type="text" id="searchInput" placeholder="Escribe para buscar una fórmula o palabra clave..." onkeyup="searchFormulas()">
+    <div id="results">
+      </div>
+
+    <div class="modal-footer">
+      #TodoEsCodigo
+    </div>
+
+    <script>
+      // Client-side JavaScript to handle search and display
+      var allFormulas = []; // To store all formulas from Apps Script
+
+      // Load formulas when the modal opens
+      google.script.run.withSuccessHandler(function(formulas) {
+        allFormulas = formulas;
+        displayFormulas(allFormulas); // Display all initially
+      }).getFormulas();
+
+      function searchFormulas() {
+        var input = document.getElementById('searchInput').value.toLowerCase();
+        var filteredFormulas = allFormulas.filter(function(formula) {
+          return formula.name.toLowerCase().includes(input) ||
+                 formula.description.toLowerCase().includes(input) ||
+                 (formula.example && formula.example.toLowerCase().includes(input)); // Include example in search
+        });
+        displayFormulas(filteredFormulas);
+      }
+
+      function displayFormulas(formulasToDisplay) {
+        var resultsDiv = document.getElementById('results');
+        resultsDiv.innerHTML = ''; // Clear previous results
+
+        if (formulasToDisplay.length === 0) {
+          resultsDiv.innerHTML = '<div class="no-results">No se encontraron fórmulas con esa búsqueda.</div>';
+          return;
+        }
+
+        formulasToDisplay.forEach(function(formula) {
+          var card = document.createElement('div');
+          card.className = 'formula-card';
+
+          var name = document.createElement('div');
+          name.className = 'formula-name';
+          name.textContent = formula.name;
+          card.appendChild(name);
+
+          var description = document.createElement('div');
+          description.className = 'formula-description';
+          description.textContent = formula.description;
+          card.appendChild(description);
+
+          if (formula.example) {
+            var example = document.createElement('div');
+            example.className = 'formula-example';
+            example.textContent = 'Ejemplo: ' + formula.example;
+            example.title = 'Haz clic para copiar'; // Tooltip for click-to-copy
+            example.onclick = function() {
+              copyToClipboard(formula.example);
+              alert('¡Fórmula copiada al portapapeles!');
+            };
+            card.appendChild(example);
+          }
+
+          resultsDiv.appendChild(card);
+        });
+      }
+
+      // Function to copy text to clipboard
+      function copyToClipboard(text) {
+        var dummy = document.createElement("textarea");
+        document.body.appendChild(dummy);
+        dummy.value = text;
+        dummy.select();
+        document.execCommand("copy");
+        document.body.removeChild(dummy);
+      }
+
+      // Initial display when the modal loads (shows all formulas)
+      window.onload = function() {
+        // Trigger initial search to display all formulas
+        searchFormulas();
+      };
+
+    </script>
+  </body>
+</html>
