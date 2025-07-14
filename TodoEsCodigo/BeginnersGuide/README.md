@@ -1,10 +1,9 @@
+TTTTT  OOOOO  DDDD   OOOOO     EEEEE  SSSS       CCCC  OOOOO  DDDD   III  GGGG  OOOOO
+  T    O   O  D   D  O   O     E     S           C     O   O  D   D   I   G     O   O
+  T    O   O  D   D  O   O     EEEE   SSS        C     O   O  D   D   I   G  GG O   O
+  T    O   O  D   D  O   O     E         S       C     O   O  D   D   I   G   G O   O
+  T    OOOOO  DDDD   OOOOO     EEEEE SSSS        CCCC  OOOOO  DDDD   III  GGGG  OOOOO
 
-
-█████  ▓▓▓▓▓  ▒▒▒▒▒  ▓▓▓▓▓       ■■■■■    ▲▲▲▲     ●●●●  ▓▓▓▓▓  ▒▒▒▒▒   │││  ◼◼◼◼   ▓▓▓▓▓
-  █    ▓   ▓  ▒   ▒  ▓   ▓       █        ▲        ●     ▓   ▓  ▒   ▒    │   ◼        ▓   ▓
-  █    ▓   ▓  ▒   ▒  ▓   ▓       ■■■■     ▲▲▲      ●     ▓   ▓  ▒   ▒    │   ◼  ◼◼   ▓   ▓
-  █    ▓   ▓  ▒   ▒  ▓   ▓       █          ▲      ●     ▓   ▓  ▒   ▒    │   ◼   ◼    ▓   ▓
-  █    ▓▓▓▓▓  ▒▒▒▒▒  ▓▓▓▓▓       ■■■■■   ▲▲▲▲      ●●●●  ▓▓▓▓▓  ▒▒▒▒▒   │││  ◼◼◼◼    ▓▓▓▓▓
  
                              Beginners Guide – Google Sheets
 --------------------------------------------------------------------------------
